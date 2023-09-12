@@ -13,6 +13,7 @@
   </header>
   <main>
         <PokemonList/>
+        
   </main>
 
 </template>

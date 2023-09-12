@@ -44,6 +44,7 @@
                 filteredPokemons:[],
                 types1:[],
                 types2:[],
+                endpoints:[],
                 loading: true,
                 errored: false,
                 typePallete: {
@@ -54,7 +55,7 @@
                     'water'   :  "#4592C4",
                     'bug'     :  "#729F3F",
                     'normal'  :  "#A4ACAF",
-                    'electric' :  "#EED535",
+                    'electric' : "#EED535",
                     'ground'  :  "#AB9842",
                     'fairy'   :  "#FDB9E9",
                     'fighting':  "#D56723",
@@ -81,15 +82,14 @@
                     .then(response => {
                         this.info = response.data.results
                         this.filteredPokemons = this.info
-                        let endpoints = []
-
+                        
                         for(var i = 0; i < this.filteredPokemons.length; i++){
 
-                            endpoints.push(this.filteredPokemons[i].url)
+                            this.endpoints.push(this.filteredPokemons[i].url)
                         }
                         
 
-                        axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+                        axios.all(this.endpoints.map((endpoint) => axios.get(endpoint)))
                             .then((data) => {
                             
                                 for(var index = 0; index < this.filteredPokemons.length; index++){
@@ -135,12 +135,40 @@
         },
         watch: {
             searchPokemon(newQuery){
-                
+
+                this.endpoints = []
+                this.types1 = []
+                this.types2 = []
+
                 const query = newQuery.toLowerCase();
                 this.filteredPokemons = this.info.filter(pokemon =>
                     pokemon.name.includes(query) ||
                     pokemon.url.split('/').at(6).includes(query)
                 )
+
+
+                for(var i = 0; i < this.filteredPokemons.length; i++){
+                
+                    this.endpoints.push(this.filteredPokemons[i].url)
+
+                }
+
+                axios.all(this.endpoints.map((endpoint) => axios.get(endpoint)))
+                            .then((data) => {
+                            
+                                for(var index = 0; index < this.filteredPokemons.length; index++){
+
+                                    
+                                        this.types1.push(data[index].data.types[0].type.name)
+                                        
+                                        if(data[index].data.types[1] !== undefined){
+                                            this.types2.push(data[index].data.types[1].type.name )
+                                        } else{
+                                            this.types2.push('')
+                                        }
+                                    }
+                            })
+
             }
         }
 
@@ -174,6 +202,7 @@
   }
   
   .searchBar {
+    width: 100%;
     font-size: 16px;
     outline: none;
     background-color: transparent;
