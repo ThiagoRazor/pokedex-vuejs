@@ -2,7 +2,7 @@
     <div class="paginationTotalArea">
         <li class="btnBox">
             <button @click="changePage(currentPage - 1)" :class="{'disabled': currentPage === 1}" class="btnPag" >Anterior</button>
-            <button @click="changePage(page)" class="btnPag" v-for="page in visiblePages">{{ page }}</button>
+            <button @click="changePage(page)" class="btnPag"  :class="{'disabled': currentPage === page}" v-for="page in visiblePages">{{ page }}</button>
             <button @click="changePage(currentPage + 1)" :class="{'disabled': currentPage === totalPages}" class="btnPag" >Próximo</button>
         </li>
         
@@ -59,7 +59,7 @@
     }
 
     .btnPag{
-        background-color: rgba(38, 76, 115, 0.459);
+        background-color: #5a150575;
         width:60px;
         height: 40px;
         border: 1px solid gray;
@@ -69,6 +69,10 @@
         align-items: center;
         color: white;
         cursor: pointer;
+    }
+
+    .disabled{
+        display: none;
     }
 
 

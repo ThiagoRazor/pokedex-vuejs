@@ -12,6 +12,7 @@
       
   </header>
   <main>
+        
         <PokemonList :currentPage="currentPage" @totalPagesUpdated="updateTotalPages"/>
         <Pagination :currentPage="currentPage" :totalPages="totalPages" @updatePage="updatePage"/> 
   </main>

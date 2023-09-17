@@ -51,14 +51,14 @@
                 loading: true,
                 errored: false,
                 typePallete: {
-                    'grass'   :  "#9BCC50",
-                    'poison'  :  "#B97FC9",
-                    'fire'    :  "#FD7D24",
-                    'flying'  :  "#3DC7EF",
-                    'water'   :  "#4592C4",
-                    'bug'     :  "#729F3F",
+                    'grass'   :  "#82b435",
+                    'poison'  :  "#a55bba",
+                    'fire'    :  "#ec6202",
+                    'flying'  :  "#13b7e6",
+                    'water'   :  "#3477a2",
+                    'bug'     :  "#8cbc55",
                     'normal'  :  "#A4ACAF",
-                    'electric' : "#EED535",
+                    'electric' : "#ddc213",
                     'ground'  :  "#AB9842",
                     'fairy'   :  "#FDB9E9",
                     'fighting':  "#D56723",
@@ -67,7 +67,7 @@
                     'steel'   :  "#9EB7B8",
                     'ice'     :  "#51C4E7",
                     'ghost'   :  "#7B62A3",
-                    'dragon'  :  "#F16E57",
+                    'dragon'  :  "#ed4528",
                 },
                 searchPokemon:'',
                  
@@ -232,8 +232,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin-top:30px;
-        gap:30px;
+        margin-top:20px;
     }
 
     .searchBarBox{
@@ -244,7 +243,7 @@
     border-radius:10px;
     height:30px;
     width:280px;
-    padding:5px;
+    padding:10px;
   }
   
   .searchBar {
@@ -257,10 +256,9 @@
 
 
     .wrapper {
-        width:600px;
-        height:720px;
+        width:500px;
+        height:655px;
         overflow-y:auto;
-        background-color: rgba(38, 76, 115, 0.459);
         border-radius: 20px;
     }
 
@@ -274,10 +272,10 @@
     }
 
     .elementArea{
-        background-color: rgb(10, 20, 30);
+        background-color: #5a1505;
         margin:auto;
-        margin-top:20px;
-        margin-bottom:20px;
+        margin-top:10px;
+        margin-bottom:10px;
         padding-top:10px;
         height:200px;
         width: 160px;
