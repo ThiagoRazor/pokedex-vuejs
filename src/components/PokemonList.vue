@@ -3,11 +3,10 @@
     <section class="pokeModal">
         <div class="searchBarBox">
             <input class="searchBar" v-model="searchPokemon" type="text" placeholder="Digite o nome ou ID... ">
-            <img src="../assets/lupa.png" style="width:20px; height: 20px; background-color: aliceblue; cursor:pointer;"/>
         </div>
         <div class="wrapper">
             <div class="wrappedContent">
-            <div class="elementArea" v-for="(pokemon, index) in filteredPokemons" :key="pokemon.name">
+            <div class="elementArea" v-for="(pokemon, index) in displayedPokemon" :key="pokemon.name">
                 <div>
                     <div :style="{backgroundColor: typePallete[types1[index]]}" class="pokemonFrame">
                         <img style="height:80px; width:70px;" :src="getImg(pokemon.url)" :alt="pokemon.name"/>
@@ -38,12 +37,16 @@
     import axios from 'axios';
 
     export default {
+        props:{
+            currentPage: Number,
+        },
         data(){
             return {
                 info:[],
                 filteredPokemons:[],
                 types1:[],
                 types2:[],
+                pokemonsPerPage: 9,
                 endpoints:[],
                 loading: true,
                 errored: false,
@@ -66,7 +69,8 @@
                     'ghost'   :  "#7B62A3",
                     'dragon'  :  "#F16E57",
                 },
-                searchPokemon:''
+                searchPokemon:'',
+                 
             }
             
         },
@@ -82,7 +86,7 @@
                     .then(response => {
                         this.info = response.data.results
                         this.filteredPokemons = this.info
-                        
+
                         for(var i = 0; i < this.filteredPokemons.length; i++){
 
                             this.endpoints.push(this.filteredPokemons[i].url)
@@ -105,7 +109,8 @@
                                     }
                             })
                             
-                            
+                         this.totalPages = Math.ceil(this.filteredPokemons.length / this.pokemonsPerPage)   
+                         this.$emit('totalPagesUpdated', this.totalPages)
                         })
 
 
@@ -129,7 +134,7 @@
                 } else {
                     return ''
                 }
-            },
+            }
             
             
         },
@@ -169,8 +174,50 @@
                                     }
                             })
 
+            },
+            currentPage: "getPokemons",
+
+        },
+        computed: {
+            displayedPokemon(){
+                const start = (this.currentPage - 1) * this.pokemonsPerPage
+                const end = start + this.pokemonsPerPage
+                
+                this.endpoints = []
+                this.types1 = []
+                this.types2 = []
+
+                for(var i = 0; i < this.filteredPokemons.slice(start, end).length; i++){
+                
+                    this.endpoints.push(this.filteredPokemons.slice(start, end)[i].url)
+
+                }
+
+                axios.all(this.endpoints.map((endpoint) => axios.get(endpoint)))
+                            .then((data) => {
+                            
+                                for(var index = 0; index < this.filteredPokemons.slice(start, end).length; index++){
+
+                                    
+                                        this.types1.push(data[index].data.types[0].type.name)
+                                        
+                                        if(data[index].data.types[1] !== undefined){
+                                            this.types2.push(data[index].data.types[1].type.name )
+                                        } else{
+                                            this.types2.push('')
+                                        }
+                                    }
+                            })
+                
+                
+                return this.filteredPokemons.slice(start, end);
+
+
+                
             }
         }
+
+
 
     }
 
@@ -185,7 +232,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin-top:60px;
+        margin-top:30px;
         gap:30px;
     }
 
@@ -198,7 +245,6 @@
     height:30px;
     width:280px;
     padding:5px;
-    margin-top:40px;
   }
   
   .searchBar {
@@ -212,7 +258,7 @@
 
     .wrapper {
         width:600px;
-        height:600px;
+        height:720px;
         overflow-y:auto;
         background-color: rgba(38, 76, 115, 0.459);
         border-radius: 20px;
@@ -281,5 +327,29 @@
         justify-content: center;
         align-items: center;
         object-fit:fill;
+    }
+
+
+
+
+
+
+
+    .btnBox{
+        display: flex;
+        gap:5px;
+    }
+
+    .btnPag{
+        background-color: rgba(38, 76, 115, 0.459);
+        width:60px;
+        height: 40px;
+        border: 1px solid gray;
+        border-radius: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        cursor: pointer;
     }
 </style>
