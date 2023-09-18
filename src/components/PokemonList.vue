@@ -8,7 +8,7 @@
             <div class="wrappedContent">
             <div class="elementArea" v-for="(pokemon, index) in displayedPokemon" :key="pokemon.name">
                 <div>
-                    <div :style="{backgroundColor: typePallete[types1[index]]}" class="pokemonFrame">
+                    <div :style="{backgroundColor: typePallete[primaryTypes[index]]}" class="pokemonFrame">
                         <img style="height:80px; width:70px;" :src="getImg(pokemon.url)" :alt="pokemon.name"/>
                     </div>
                     <div class="pokemonTextArea" >
@@ -17,11 +17,11 @@
                     </div>
                 </div>
                 <div class="pokemonTypeArea">
-                    <div v-if="types1[index]"  :style="{backgroundColor: typePallete[types1[index]]}" class="typeBox">
-                        {{capitalizeFirstLetter(types1[index])}}
+                    <div v-if="primaryTypes[index]"  :style="{backgroundColor: typePallete[primaryTypes[index]]}" class="typeBox">
+                        {{capitalizeFirstLetter(primaryTypes[index])}}
                     </div>
-                    <div v-if="types2[index]"  :style="{backgroundColor: typePallete[types2[index]]}" class="typeBox">
-                        {{capitalizeFirstLetter(types2[index])}}
+                    <div v-if="secondaryTypes[index]"  :style="{backgroundColor: typePallete[secondaryTypes[index]]}" class="typeBox">
+                        {{capitalizeFirstLetter(secondaryTypes[index])}}
                     </div>
                 </div>
             </div>
@@ -44,8 +44,8 @@
             return {
                 info:[],
                 filteredPokemons:[],
-                types1:[],
-                types2:[],
+                primaryTypes:[],
+                secondaryTypes:[],
                 pokemonsPerPage: 9,
                 endpoints:[],
                 loading: true,
@@ -99,12 +99,12 @@
                                 for(var index = 0; index < this.filteredPokemons.length; index++){
 
                                     
-                                        this.types1.push(data[index].data.types[0].type.name)
+                                        this.primaryTypes.push(data[index].data.types[0].type.name)
                                         
                                         if(data[index].data.types[1] !== undefined){
-                                            this.types2.push(data[index].data.types[1].type.name )
+                                            this.secondaryTypes.push(data[index].data.types[1].type.name )
                                         } else{
-                                            this.types2.push('')
+                                            this.secondaryTypes.push('')
                                         }
                                     }
                             })
@@ -112,8 +112,12 @@
                          this.totalPages = Math.ceil(this.filteredPokemons.length / this.pokemonsPerPage)   
                          this.$emit('totalPagesUpdated', this.totalPages)
                         })
-
-
+                        .catch(error => {
+                            // Trate o erro aqui, por exemplo, definindo this.errored como true
+                            this.errored = true;
+                            console.error('Erro na solicitação Axios:', error);
+                        });
+                        
             },
 
             getId(url){
@@ -142,8 +146,8 @@
             searchPokemon(newQuery){
 
                 this.endpoints = []
-                this.types1 = []
-                this.types2 = []
+                this.primaryTypes = []
+                this.secondaryTypes = []
 
                 const query = newQuery.toLowerCase();
                 this.filteredPokemons = this.info.filter(pokemon =>
@@ -164,12 +168,12 @@
                                 for(var index = 0; index < this.filteredPokemons.length; index++){
 
                                     
-                                        this.types1.push(data[index].data.types[0].type.name)
+                                        this.primaryTypes.push(data[index].data.types[0].type.name)
                                         
                                         if(data[index].data.types[1] !== undefined){
-                                            this.types2.push(data[index].data.types[1].type.name )
+                                            this.secondaryTypes.push(data[index].data.types[1].type.name )
                                         } else{
-                                            this.types2.push('')
+                                            this.secondaryTypes.push('')
                                         }
                                     }
                             })
@@ -184,8 +188,8 @@
                 const end = start + this.pokemonsPerPage
                 
                 this.endpoints = []
-                this.types1 = []
-                this.types2 = []
+                this.primaryTypes = []
+                this.secondaryTypes = []
 
                 for(var i = 0; i < this.filteredPokemons.slice(start, end).length; i++){
                 
@@ -199,12 +203,12 @@
                                 for(var index = 0; index < this.filteredPokemons.slice(start, end).length; index++){
 
                                     
-                                        this.types1.push(data[index].data.types[0].type.name)
+                                        this.primaryTypes.push(data[index].data.types[0].type.name)
                                         
                                         if(data[index].data.types[1] !== undefined){
-                                            this.types2.push(data[index].data.types[1].type.name )
+                                            this.secondaryTypes.push(data[index].data.types[1].type.name )
                                         } else{
-                                            this.types2.push('')
+                                            this.secondaryTypes.push('')
                                         }
                                     }
                             })
@@ -225,129 +229,6 @@
 
 
 
-<style >
-
-    .pokeModal {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin-top:20px;
-    }
-
-    .searchBarBox{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: aliceblue;
-    border-radius:10px;
-    height:30px;
-    width:280px;
-    padding:10px;
-  }
-  
-  .searchBar {
-    width: 100%;
-    font-size: 16px;
-    outline: none;
-    background-color: transparent;
-    border: 0;
-  }
-
-
-    .wrapper {
-        width:500px;
-        height:655px;
-        overflow-y:auto;
-        border-radius: 20px;
-    }
-
-    .wrapper::-webkit-scrollbar{
-        width:0px;
-    }
-
-    .wrappedContent{
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .elementArea{
-        background-color: #5a1505;
-        margin:auto;
-        margin-top:10px;
-        margin-bottom:10px;
-        padding-top:10px;
-        height:200px;
-        width: 160px;
-        border: 1px solid rgb(70, 110, 155);
-        border-radius: 10%;
-        cursor:pointer;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .pokemonTextArea{
-        width:inherit;
-        padding:5px 10px;
-        font-weight: bold;
-        color:rgb(254, 254, 254);
-    }
-
-    .pokemonTypeArea{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap:5px;
-    }
-
-
-    .typeBox {
-        background-color: #555f63;
-        color:white;
-        font-weight: bold;
-        font-size: 14px;
-        width:65px;
-        height:20px;
-        border-radius: 4px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .pokemonFrame{
-        border: 1px solid rgb(70, 110, 155);
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        object-fit:fill;
-    }
-
-
-
-
-
-
-
-    .btnBox{
-        display: flex;
-        gap:5px;
-    }
-
-    .btnPag{
-        background-color: rgba(38, 76, 115, 0.459);
-        width:60px;
-        height: 40px;
-        border: 1px solid gray;
-        border-radius: 10%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        cursor: pointer;
-    }
+<style lang="scss">
+    @import url(../assets/pokemonList.scss);
 </style>

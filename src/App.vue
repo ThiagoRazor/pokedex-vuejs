@@ -2,9 +2,9 @@
 
   <header class="mainBox">
       <div>
-          <a class="logoPath" href="./">
-            <img class="pokedexLogo" src="./assets/logo.png" alt="Pokedex-Logo" style="height:90px;width:270px; vertical-align: middle;"/> 
-            <img src="./assets/pikachu.gif" style="width:50px; height:60px; vertical-align: middle;" alt="Pikachu">
+          <a class="logoPath" href="#">
+            <img class="pokedexLogo" src="./assets/img/logo.png" alt="Pokedex Logo" style="height:90px;width:270px; vertical-align: middle;"/> 
+            <img src="./assets/img/pikachu.gif" style="width:50px; height:60px; vertical-align: middle;" alt="Pikachu">
           </a>
       <div>
       </div>

@@ -1,9 +1,11 @@
 <template>
     <div class="paginationTotalArea">
         <li class="btnBox">
+            <button @click="changePage(currentPage = 1)" :class="{'disabled': currentPage === 1}" class="btnPag" >Início</button>
             <button @click="changePage(currentPage - 1)" :class="{'disabled': currentPage === 1}" class="btnPag" >Anterior</button>
             <button @click="changePage(page)" class="btnPag"  :class="{'disabled': currentPage === page}" v-for="page in visiblePages">{{ page }}</button>
             <button @click="changePage(currentPage + 1)" :class="{'disabled': currentPage === totalPages}" class="btnPag" >Próximo</button>
+            <button @click="changePage(currentPage = totalPages)" :class="{'disabled': currentPage === totalPages}" class="btnPag" >Fim</button>
         </li>
         
         
@@ -55,7 +57,7 @@
 
     .btnBox{
         display: flex;
-        gap:5px;
+        gap:2px;
     }
 
     .btnPag{
@@ -75,5 +77,11 @@
         display: none;
     }
 
-
+    @media (min-width: 300px) and (max-width: 359px) {
+    .btnPag{
+        width: 30px;
+        height: 30px;
+        font-size: 10px;
+    }
+}
 </style>
