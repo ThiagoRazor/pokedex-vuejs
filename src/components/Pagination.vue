@@ -3,7 +3,6 @@
         <li class="btnBox">
             <button @click="changePage(currentPage = 1)" :class="{'disabled': currentPage === 1}" class="btnPag" >Início</button>
             <button @click="changePage(currentPage - 1)" :class="{'disabled': currentPage === 1}" class="btnPag" >Anterior</button>
-            <button @click="changePage(page)" class="btnPag"  :class="{'disabled': currentPage === page}" v-for="page in visiblePages">{{ page }}</button>
             <button @click="changePage(currentPage + 1)" :class="{'disabled': currentPage === totalPages}" class="btnPag" >Próximo</button>
             <button @click="changePage(currentPage = totalPages)" :class="{'disabled': currentPage === totalPages}" class="btnPag" >Fim</button>
         </li>
@@ -61,7 +60,7 @@
     }
 
     .btnPag{
-        background-color: #5a150575;
+        background-color: #00043c75;
         width:60px;
         height: 40px;
         border: 1px solid gray;

@@ -6,7 +6,7 @@
         </div>
         <div class="wrapper">
             <div class="wrappedContent">
-            <div class="elementArea" v-for="(pokemon, index) in displayedPokemon" :key="pokemon.name">
+            <div @click="openPokemonDetails(pokemon.url)" class="elementArea" v-for="(pokemon, index) in displayedPokemon" :key="pokemon.name">
                 <div>
                     <div :style="{backgroundColor: typePallete[primaryTypes[index]]}" class="pokemonFrame">
                         <img style="height:80px; width:70px;" :src="getImg(pokemon.url)" :alt="pokemon.name"/>
@@ -30,15 +30,17 @@
         </div>
 
     </section>
+    <Pagination :currentPage="currentPage" :totalPages="totalPages" @updatePage="updatePage"/>
 </template>
 
 
 <script>
     import axios from 'axios';
+    import Pagination from '../components/Pagination.vue';
 
     export default {
-        props:{
-            currentPage: Number,
+        components: {
+            Pagination
         },
         data(){
             return {
@@ -50,6 +52,8 @@
                 endpoints:[],
                 loading: true,
                 errored: false,
+                currentPage: 1,
+                totalPages: 1,
                 typePallete: {
                     'grass'   :  "#82b435",
                     'poison'  :  "#a55bba",
@@ -126,7 +130,7 @@
             getImg(url){
                 const id = this.getId(url)
                 
-                return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${id}.gif`
+                return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${id}.gif`
             },
             capitalizeFirstLetter(name){
                 if(name !== ''){
@@ -138,7 +142,16 @@
                 } else {
                     return ''
                 }
-            }
+            },
+            updateTotalPages(totalPages){
+                this.totalPages = totalPages;
+             },
+            updatePage(newPage){
+                this.currentPage = newPage;
+            },
+            openPokemonDetails(url){
+                this.$router.push({name: 'PokemonDetails', params: { url: url}})
+            },
             
             
         },
@@ -229,6 +242,6 @@
 
 
 
-<style lang="scss">
+<style lang="scss" scoped>
     @import url(../assets/pokemonList.scss);
 </style>
