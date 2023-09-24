@@ -164,6 +164,7 @@ export default {
             this.primaryTypes = []
             this.secondaryTypes = []
 
+
             const query = newQuery.toLowerCase();
             this.filteredPokemons = this.info.filter(pokemon =>
                 pokemon.name.includes(query) ||
@@ -176,6 +177,8 @@ export default {
                 this.endpoints.push(this.filteredPokemons[i].url)
 
             }
+
+            this.currentPage = 1;
 
             axios.all(this.endpoints.map((endpoint) => axios.get(endpoint)))
                 .then((data) => {
