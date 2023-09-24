@@ -1,29 +1,55 @@
-# pokedex-vuejs
+# Pokédex Vue.js 
 
-This template should help get you started developing with Vue 3 in Vite.
+![Pokédex Screenshot](https://raw.githubusercontent.com/ThiagoRazor/pokedex-vuejs/main/src/assets/img/pokedex.png)
 
-## Recommended IDE Setup
+Esta é uma Pokédex desenvolvida com Vue.js que consome dados da PokeAPI v2
+apresentando informações detalhadas sobre mais de 1000 Pokémon, incluindo seus nomes, IDs, tipos e dados de evolução. 
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Demonstração ao Vivo
 
-## Customize configuration
+Confira a [Pokédex em ação](https://pokedex-vuejs-mauve.vercel.app/pokemons) no Vercel.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## Recursos
 
-## Project Setup
+- Vue.js: Framework Javascript progressivo para construção de interfaces de usuário.
 
+- PokeAPI v2: Fonte de dados oficial dos Pokémon.
+
+- Sass: Pré-processador CSS para estilização avançada.
+
+- Axios: Cliente HTTP para fazer solicitações à PokeAPI.
+
+- Vercel: Plataforma de hospedagem para deploy rápido e fácil.
+
+- Vue Router: Gerenciamento de rotas para criar uma experiência de navegação suave.
+  
+## Como Rodar Localmente
+
+1. Clone este repositório:
 ```sh
-npm install
+git clone https://github.com/ThiagoRazor/pokedex-vuejs
 ```
-
-### Compile and Hot-Reload for Development
-
+2. Instale as dependências:
 ```sh
-npm run dev
+   npm install
 ```
-
-### Compile and Minify for Production
-
+3. Inicie o servidor de desenvolvimento:
 ```sh
-npm run build
+  npm run serve
 ```
+4. Abra o projeto no seu navegador em `http://localhost:5173`.
+
+## Funcionalidades 
+
+- [x] Listagem dos Pokémon com nomes, IDs e os respectivos tipos.
+- [x] Detalhes individuais dos Pokémon.
+- [x] Informações de evolução dos Pokémon.
+- [x] Pesquisa de Pokémon por nome e id.
+
+## Autor
+
+- [Thiago de Oliveira da Silva](https://github.com/ThiagoRazor) - Desenvolvedor principal
+
+---
+
+Divirta-se explorando a Pokédex! Gotta catch 'em all!
