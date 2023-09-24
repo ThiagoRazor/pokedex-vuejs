@@ -86,7 +86,7 @@
         methods: {
             getPokemons() {
                 axios
-                    .get("https://pokeapi.co/api/v2/pokemon?limit=151")
+                    .get("https://pokeapi.co/api/v2/pokemon?limit=386")
                     .then(response => {
                         this.info = response.data.results
                         this.filteredPokemons = this.info
@@ -130,7 +130,7 @@
             getImg(url){
                 const id = this.getId(url)
                 
-                return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${id}.gif`
+                return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
             },
             capitalizeFirstLetter(name){
                 if(name !== ''){

@@ -1,3 +1,4 @@
+    
     .pokemonContainer{
         display: flex;
         justify-content: center;
@@ -29,7 +30,7 @@
                 display: flex;
                 flex-direction: row;
                 align-items: center;
-                justify-content: space-between;
+                justify-content: space-around;
                 padding: 0 20px;
     
                 .pokeAvatarArea{
@@ -46,7 +47,6 @@
                     border-radius: 50%;
                     width: 150px;
                     height: 150px;
-                    object-position: 15px;
                 }
                 
                 .pokeInfo{
@@ -103,7 +103,64 @@
         
         }
     
+        @media (min-width: 440px) and (max-width: 520px){
+
+
+
+            .infoContainer{
+                width: 430px;
+                
+                
+                .pokemonArea{
+                    width: 430px;
+
+                    .pokeAvatarArea{
+                        width:170px;
+                        height: 170px;
+                    }
+                }
+            }
+        
+    
+    
+        }
+
+        @media (min-width: 300px) and (max-width: 439px){
+
+            
+            .infoContainer{
+                width: 300px;
+                height:560px;
+                margin:50px;
+                                
+                .pokemonArea{
+                    flex-direction: column;
+                    width: 300px;
+                    gap:10px;
+                    padding:10px;
+
+                    .pokeAvatarArea{
+                        width:130px;
+                        height: 130px;
+
+                        img{
+                            width: 130px;
+                            height: 130px;
+                        }
+                    }
+
+                    .allAttributes{
+                        width: 100%;
+                    }
+                }
+            }
+        
+    
+    
+        }
     }
+
+
 
         
     .pokeStats{
@@ -125,7 +182,7 @@
                 border-radius: 20px;
                 display: flex;
                 flex-direction: row;
-                justify-content: space-between;
+                justify-content: space-around;
                 align-items: center;
                 gap:5px;
                 
@@ -141,12 +198,30 @@
                         img{
                             width: 100px;
                             height: 100px;
-                            object-position: 10px;
+                        }
+                    }
+                }
+
+
+                @media (min-width: 300px) and (max-width: 439px) {
+                    .allEvolutions{
+                        height: unset;
+
+                        .evolvedArea{
+                            width: 70px;
+                            height: 70px;
+
+                            img{
+                                width:70px;
+                                height: 70px;
+                            }
                         }
                     }
                 }
             }
     }
+
+
 
     
 

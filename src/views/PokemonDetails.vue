@@ -5,7 +5,7 @@
                 <div>
                     <div :style="{backgroundColor: typePallete[type1]}" class="pokeAvatarArea">
                         <picture>
-                            <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${IDBCursor}.gif`"/>
+                            <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`"/>
                         </picture>
                     </div>
                     
@@ -176,7 +176,7 @@
             getImg(url){
                 const id = this.getId(url)
                 
-                return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${id}.gif`
+                return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
             },
             capitalizeFirstLetter(name){
                 if(name !== ''){
